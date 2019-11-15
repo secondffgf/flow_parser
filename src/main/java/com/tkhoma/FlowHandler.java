@@ -15,7 +15,7 @@ import com.tkhoma.result.ResultBuilder;
 public class FlowHandler {
 	public static void main(String ... args) {
 		if (args.length != 3) {
-			throw new IllegalArgumentException("You should pass classpath and flow name as arguments!");
+			throw new IllegalArgumentException("You should pass classpath, flow name and output file as arguments!");
 		}
 		FlowParser parser = new FlowParser(args[0], args[1]);
 		Map.Entry<String, Element> mainFlow = parser.findMainFlow();

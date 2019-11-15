@@ -1,5 +1,7 @@
 package com.tkhoma;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.AbstractMap;
@@ -63,9 +65,10 @@ public class XmlHandler {
 		if (documentFromCache != null) {
 			return documentFromCache;
 		}
-		InputStream is = getClass().getClassLoader().getResourceAsStream(fileName);
+		File file = new File(fileName);
 		Document doc = null;
 		try {
+			InputStream is = new FileInputStream(file);
 			doc = readXML(is, LINE_NUMBER);
 		} catch (Exception e) {
 			e.printStackTrace();
