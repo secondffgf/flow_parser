@@ -57,14 +57,13 @@ public class ResultBuilder {
 			String connection = connectionBuilder.toString();
 			
 			Link existingLink = linksPerConnection.get(connection.toString());
-			String type = "line " + call.getCallLine();
 			if (existingLink != null) {
-				if (!type.equals(existingLink.getType())) {
-					StringBuilder newType = new StringBuilder(existingLink.getType())
-							.append(", ").append(call.getCallLine());
-					existingLink.setType(newType.toString());
+				boolean containsLine = existingLink.getType().matches(String.format("(?s).*\\b%d\\b(?s).*", call.getCallLine()));
+				if (!containsLine) {
+					existingLink.setType(String.format("%s, %d", existingLink.getType(), call.getCallLine()));
 				}
 			} else {
+				String type = "line " + call.getCallLine();
 				link = new Link(source, target, type);
 				linksPerConnection.put(connection.toString(), link);
 			}
