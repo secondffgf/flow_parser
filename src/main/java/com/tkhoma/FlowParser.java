@@ -30,7 +30,6 @@ public class FlowParser {
 	
 	public void findFlowReferencesInFlow(Element flow) {
 		List<Map.Entry<String, Integer>> flowReferences = xmlHandler.findFlowReferencesInFlow(flow);
-		// TODO: add final field
 		Call call;
 		for (Map.Entry<String, Integer> entry : flowReferences) {
 			String parent = flow.getAttribute("name");

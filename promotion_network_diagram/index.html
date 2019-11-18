@@ -114,19 +114,14 @@
 //            .text(function (d) {return d.name+":"+d.label;});
             .text(function (d) {return d.name;});
 
-        node.
-            each(function(d, i) {
-                if (d.id === 1) {
-                    var style = this.children[2].style;
-                    style.fontWeight = 'bold';
-                }
-
-                if (d.leaf) {
-                    console.log("final node");
-                    var style = this.children[2].style;
-                    style.fill = 'green';
-                }
-            });
+        node
+            .on('click', function(d, event) {
+                var nodes = svg.selectAll(".node");
+                nodes.each(refreshNode);
+                var style = this.children[2].style;
+                style.fill = 'red';
+            })
+            .each(refreshNode);
 
         simulation
             .nodes(nodes)
@@ -134,6 +129,18 @@
 
         simulation.force("link")
             .links(links);
+    }
+
+    function refreshNode(d) {
+        var style = this.children[2].style;
+        if (d.id === 1) {
+            style.fontWeight = 'bold';
+        }
+        if (d.leaf) {
+            style.fill = 'green';
+        } else {
+            style.fill = 'black';
+        }
     }
 
     function ticked() {

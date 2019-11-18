@@ -1,5 +1,6 @@
 package com.tkhoma.result;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -78,13 +79,19 @@ public class ResultBuilder {
 		return result;
 	}
 	
-	private FlowReference buildFlowReference(String flowName, Integer flowDefLine, String flowFileName, int id) {
+	private FlowReference buildFlowReference(String flowName, Integer flowDefLine, String flowFilePath, int id) {
 		StringBuilder location = new StringBuilder();
-		location.append(flowFileName);
+		String fileName = getFileName(flowFilePath);
+		location.append(fileName);
 		location.append(":");
 		location.append(flowDefLine);
 		FlowReference flowReference = new FlowReference(flowName, location.toString(), id);
 		return flowReference;
+	}
+
+	private String getFileName(String flowFilePath) {
+		File flowFile = new File(flowFilePath);
+		return flowFile.getName();
 	}
 
 }
